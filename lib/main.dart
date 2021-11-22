@@ -28,10 +28,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    final double devHeight = MediaQuery.of(context).size.height;
+    final double devWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-    );
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Column(
+          children: [
+            Container(
+                width: devWidth, height: devHeight * 0.5, color: Colors.amber),
+            Container(
+                width: devWidth, height: devHeight * 0.5, color: Colors.blue)
+          ],
+        ));
   }
 }
