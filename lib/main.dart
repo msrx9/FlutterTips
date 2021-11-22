@@ -37,10 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(
           children: [
-            Container(
-                width: devWidth, height: devHeight * 0.5, color: Colors.amber),
-            Container(
-                width: devWidth, height: devHeight * 0.5, color: Colors.blue)
+            Expanded(child: Container(color: Colors.amber), flex: 5),
+            Expanded(child: Container(color: Colors.blue), flex: 5),
           ],
         ));
   }
