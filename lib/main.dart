@@ -26,12 +26,37 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Widget _buildStack() {
+    return Stack(
+      children: [
+        Positioned(
+            left: 20.0,
+            top: 20.0,
+            width: 100.0,
+            height: 100.0,
+            child: Container(
+              color: Colors.indigo,
+            )),
+        Positioned(
+          left: 100.0,
+          top: 100.0,
+          right: 100.0,
+          bottom: 200.0,
+          child: Container(
+            color: Colors.cyan,
+          ),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      body: _buildStack(),
     );
   }
 }
