@@ -4,7 +4,6 @@ import 'package:exif/exif.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:question_answer/compornent/button_compornent.dart';
 
 class ImagePick extends StatefulWidget {
   @override
