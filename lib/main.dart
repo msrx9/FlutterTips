@@ -29,11 +29,16 @@ class _ImagePickState extends State<ImagePick> {
         body: Center(
           child: Column(
             children: [
-              _imageViewer(),
-              _dateViewer(),
+              // _imageViewer(),
+              // _dateViewer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [_imagePickerButton(), _getExifFromImage()],
+                children: [
+                  // _imagePickerButton(),
+                  // _getExifFromImage(),
+                  Text('hoge'),
+                  Text('fuga'),
+                ],
               )
             ],
           ),
@@ -60,7 +65,7 @@ class _ImagePickState extends State<ImagePick> {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       // ②
-      pickedImage = File(pickedFile.path);
+      pickedImage = File(pickedFile!.path);
     });
   }
 
@@ -68,7 +73,7 @@ class _ImagePickState extends State<ImagePick> {
     return GestureDetector(
       onTap: () async {
         // ③
-        final tags = await readExifFromBytes(await pickedImage.readAsBytes());
+        final tags = await readExifFromBytes(await pickedImage!.readAsBytes());
         // ④
         String dateTime = tags["Image DateTime"].toString();
         // ⑤
