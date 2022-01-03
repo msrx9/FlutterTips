@@ -16,7 +16,7 @@ class ImagePick extends StatefulWidget {
 
 class _ImagePickState extends State<ImagePick> {
   final picker = ImagePicker();
-  File pickedImage;
+  late File pickedImage;
 
   String pickedDate;
 
