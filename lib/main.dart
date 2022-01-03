@@ -1,95 +1,60 @@
-import 'dart:io';
-
-import 'package:exif/exif.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 void main() {
-  runApp(ImagePick());
+  runApp(const MyApp());
 }
 
-class ImagePick extends StatefulWidget {
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
-  _ImagePickState createState() => _ImagePickState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const HomePage(),
+    );
+  }
 }
 
-class _ImagePickState extends State<ImagePick> {
-  final picker = ImagePicker();
-  late File pickedImage;
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
-  late String pickedDate;
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final ImagePicker _picker = ImagePicker();
+  File? _file;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("image pick"),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              // _imageViewer(),
-              // _dateViewer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // _imagePickerButton(),
-                  // _getExifFromImage(),
-                  Text('hoge'),
-                  Text('fuga'),
-                ],
-              )
-            ],
-          ),
-        ));
-  }
-
-  Widget _imagePickerButton() {
-    return GestureDetector(
-        onTap: () {
-          _imagePickAndSave();
-        },
-        child: Text("画像取得"));
-  }
-
-  Widget _dateViewer() {
-    return Container(
-        margin: EdgeInsets.symmetric(vertical: 20),
-        child: pickedDate != null ? Text("$pickedDate") : Text("EXIFは未取得です"));
-  }
-
-  void _imagePickAndSave() async {
-    print("ok");
-    // ①
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      // ②
-      pickedImage = File(pickedFile!.path);
-    });
-  }
-
-  Widget _getExifFromImage() {
-    return GestureDetector(
-      onTap: () async {
-        // ③
-        final tags = await readExifFromBytes(await pickedImage!.readAsBytes());
-        // ④
-        String dateTime = tags["Image DateTime"].toString();
-        // ⑤
-        setState(() {
-          pickedDate = dateTime;
-        });
-      },
-      child: Text("EXIF取得"),
+      appBar: AppBar(
+        title: const Text('Image Picker'),
+      ),
+      body: Column(
+        children: [
+          if (_file != null)
+            Image.file(
+              _file!,
+              fit: BoxFit.cover,
+            ),
+          OutlinedButton(
+              onPressed: () async {
+                final XFile? _image =
+                    await _picker.pickImage(source: ImageSource.gallery);
+                _file = File(_image!.path);
+                setState(() {});
+              },
+              child: const Text('画像を選択'))
+        ],
+      ),
     );
-  }
-
-  Widget _imageViewer() {
-    return Container(
-        width: 200,
-        height: 200,
-        child:
-            pickedImage != null ? Image.file(pickedImage) : Text("No Image"));
   }
 }
