@@ -31,6 +31,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final ImagePicker _picker = ImagePicker();
   File? _file;
+  String subTitle = 'default subTitle';
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
+          Text(subTitle),
           if (_file != null)
             Image.file(
               _file!,
@@ -52,7 +54,13 @@ class _HomePageState extends State<HomePage> {
                 _file = File(_image!.path);
                 setState(() {});
               },
-              child: const Text('画像を選択'))
+              child: const Text('画像を選択')),
+          OutlinedButton(
+              onPressed: () async {
+                subTitle = 'Tapped EXIF取得';
+                setState(() {});
+              },
+              child: const Text('EXIF取得')),
         ],
       ),
     );
