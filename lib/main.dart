@@ -1,37 +1,87 @@
+import 'dart:io';
+
+import 'package:exif/exif.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:question_answer/compornent/button_compornent.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class ImagePick extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+  _ImagePickState createState() => _ImagePickState();
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+class _ImagePickState extends State<ImagePick> {
+  final picker = ImagePicker();
+  File pickedImage;
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+  String pickedDate;
 
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+        appBar: AppBar(
+          title: const Text("image pick"),
+        ),
+        body: Center(
+          child: Column(
+            children: [
+              _imageViewer(),
+              _dateViewer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [_imagePickerButton(), _getExifFromImage()],
+              )
+            ],
+          ),
+        ));
+  }
+
+  Widget _imagePickerButton() {
+    return GestureDetector(
+        onTap: () {
+          _imagePickAndSave();
+        },
+        child: ButtonComponent.buttonContainer("画像取得"));
+  }
+
+  Widget _dateViewer() {
+    return Container(
+        margin: EdgeInsets.symmetric(vertical: 20),
+        child: pickedDate != null ? Text("$pickedDate") : Text("EXIFは未取得です"));
+  }
+
+  void _imagePickAndSave() async {
+    print("ok");
+    // ①
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      // ②
+      pickedImage = File(pickedFile.path);
+    });
+  }
+
+  Widget _getExifFromImage() {
+    return GestureDetector(
+      onTap: () async {
+        // ③
+        final tags = await readExifFromBytes(await pickedImage.readAsBytes());
+        // ④
+        String dateTime = tags["Image DateTime"].toString();
+        // ⑤
+        setState(() {
+          pickedDate = dateTime;
+        });
+      },
+      child: ButtonComponent.buttonContainer("EXIF取得"),
     );
+  }
+
+  Widget _imageViewer() {
+    return Container(
+        width: 200,
+        height: 200,
+        child:
+            pickedImage != null ? Image.file(pickedImage) : Text("No Image"));
   }
 }

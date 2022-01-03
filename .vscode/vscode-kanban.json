@@ -1,0 +1,34 @@
+{
+  "todo": [
+    {
+      "assignedTo": {
+        "name": "msrx9"
+      },
+      "creation_time": "2022-01-03T06:28:33.123Z",
+      "description": {
+        "content": ": Error: '_ImagePickState' is already declared in this scope.\nlib/main.dart:97\nclass _ImagePickState extends State<ImagePick> {\n      ^^^^^^^^^^^^^^^\n: Context: Previous declaration of '_ImagePickState'.\nlib/main.dart:13\nclass _ImagePickState extends State<ImagePick> {\n",
+        "mime": "text/markdown"
+      },
+      "id": "2",
+      "references": [],
+      "title": "Error: '_ImagePickState' is already declared in this scope."
+    },
+    {
+      "assignedTo": {
+        "name": "msrx9"
+      },
+      "creation_time": "2022-01-03T06:28:00.188Z",
+      "description": {
+        "content": "Error: Couldn't resolve the package 'question_answer' in 'package:question_answer/compornent/button_compornent.dart'.\n: Error: 'ImagePick' is already declared in this scope.\nlib/main.dart:92\nclass ImagePick extends StatefulWidget {\n      ^^^^^^^^^\n: Conte",
+        "mime": "text/markdown"
+      },
+      "id": "1",
+      "prio": 1,
+      "references": [],
+      "title": "Error: Couldn't resolve the package 'question_answer'"
+    }
+  ],
+  "in-progress": [],
+  "testing": [],
+  "done": []
+}
