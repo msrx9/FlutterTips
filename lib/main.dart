@@ -45,7 +45,7 @@ class _ImagePickState extends State<ImagePick> {
         onTap: () {
           _imagePickAndSave();
         },
-        child: ButtonComponent.buttonContainer("画像取得"));
+        child: Text("画像取得"));
   }
 
   Widget _dateViewer() {
@@ -76,7 +76,7 @@ class _ImagePickState extends State<ImagePick> {
           pickedDate = dateTime;
         });
       },
-      child: ButtonComponent.buttonContainer("EXIF取得"),
+      child: Text("EXIF取得"),
     );
   }
 
