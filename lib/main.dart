@@ -18,7 +18,7 @@ class _ImagePickState extends State<ImagePick> {
   final picker = ImagePicker();
   late File pickedImage;
 
-  String pickedDate;
+  late String pickedDate;
 
   @override
   Widget build(BuildContext context) {
