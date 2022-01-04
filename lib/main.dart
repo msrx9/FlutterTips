@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:exif/exif.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,7 +58,9 @@ class _HomePageState extends State<HomePage> {
               child: const Text('画像を選択')),
           OutlinedButton(
               onPressed: () async {
-                subTitle = 'Tapped EXIF取得';
+                final tags =
+                    await readExifFromBytes(await _file?.readAsBytes());
+                subTitle = tags.toString();
                 setState(() {});
               },
               child: const Text('EXIF取得')),
